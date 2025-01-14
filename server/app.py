@@ -6,6 +6,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 app = Flask(__name__)
@@ -13,10 +17,10 @@ CORS(app, origins=["https://inventory-frontend-ffml.onrender.com"])
 
 def get_db_connection():
     conn = psycopg2.connect(
-        host='localhost',
-        dbname='inventory_db',
-        user='opuser',
-        password='access!Br2'
+        host=os.getenv('DB_HOST'),
+        dbname=os.getenv('DB_NAME'),
+        user=os.getenv('DB_USER'),
+        password=os.getenv('DB_PASSWORD')
     )
     return conn
 
