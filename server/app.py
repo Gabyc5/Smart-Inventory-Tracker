@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://inventory-backend-9xgv.onrender.com"])
 
 def get_db_connection():
     conn = psycopg2.connect(
