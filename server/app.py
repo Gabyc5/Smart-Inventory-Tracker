@@ -21,7 +21,8 @@ def get_db_connection():
         dbname=os.getenv('DB_NAME'),
         user=os.getenv('DB_USER'),
         password=os.getenv('DB_PASSWORD'),
-        port=os.getenv('DB_PORT')
+        port=os.getenv('DB_PORT'),
+        options=f"-c pool_mode={os.getenv('DB_POOL_MODE')}" 
     )
     return conn
 
@@ -103,16 +104,20 @@ def add_item():
 
 @app.route('/items', methods=['GET'])
 def get_items():
-    conn = get_db_connection()
-    cursor = conn.cursor()
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
 
-    cursor.execute('SELECT * FROM inventory')
-    items = cursor.fetchall()
+        cursor.execute('SELECT * FROM inventory')
+        items = cursor.fetchall()
 
-    cursor.close()
-    conn.close()
+        cursor.close()
+        conn.close()
 
-    return jsonify({"items": items}), 200
+        return jsonify({"items": items}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @app.route('/update_item/<int:id>', methods=['PUT'])
 def update_item(id):
