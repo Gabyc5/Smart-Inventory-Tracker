@@ -5,11 +5,17 @@ import SearchItem from './components/SearchItem';
 
 const App = () => {
   return (
-    <div>
-      <h1>Smart Inventory Tracker</h1>
-      <AddItem />
-      <ItemList />
-      <SearchItem />
+    <div className="app-container">
+      <h1>Inventory Tracker</h1>
+      <div className="content">
+        <div className="left-column">
+          <SearchItem />
+          <AddItem />
+        </div>
+        <div className="right-column">
+          <ItemList />
+        </div>
+      </div>
     </div>
   );
 };

@@ -30,8 +30,10 @@ const AddItem = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="add-item-form" onSubmit={handleSubmit}>
+            <h2>Add Item to Inventory</h2>
             <input
+                className="form-input"
                 type="text"
                 placeholder="Name"
                 value={name}
@@ -39,6 +41,7 @@ const AddItem = () => {
                 required           
             />
             <select 
+                className="form-select"
                 value={location} 
                 onChange={(e) => {
                     setLocation(e.target.value);
@@ -55,6 +58,7 @@ const AddItem = () => {
             </select>
             {location && (
                 <select
+                    className="form-select"
                     value={sublocation}
                     onChange={(e) => setSublocation(e.target.value)}
                     required
@@ -68,12 +72,13 @@ const AddItem = () => {
                 </select>
             )}
             <input 
+                className="form-input"
                 type="text"
                 placeholder="Tags"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
             />
-            <button type="submit">Add Item to Inventory</button>
+            <button className="form-button" type="submit">Add Item</button>
         </form>
     );
 };
