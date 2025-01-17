@@ -32,7 +32,7 @@ const ItemList = () => {
             <ul>
                 {items.map((item) => (
                     <li key={item[0]}>
-                        {item[1]} - {item[2]} - {item[3]}{' '}
+                        {item[1]} - {item[2]} - {item[4]} - {item[3]}{' '}
                         <button onClick={() => handleDelete(item[0])}>Delete</button>
                     </li>
                 ))}

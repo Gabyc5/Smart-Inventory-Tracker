@@ -13,7 +13,8 @@ load_dotenv()
 
 
 app = Flask(__name__)
-CORS(app, origins=["https://inventory-frontend-ffml.onrender.com"])
+#Added the local react dev server for local testing, the first two strings were added
+CORS(app, origins=["http://localhost:3000", "http://192.168.1.160:3000", "https://inventory-frontend-ffml.onrender.com"])
 
 def get_db_connection():
     conn = psycopg2.connect(
@@ -59,7 +60,6 @@ def get_similar_items(query):
 
     query = query.lower()
 
-    #vectorizer = TfidfVectorizer(stop_words=stop_words)
     tfidf_matrix = vectorizer.fit_transform(items_text)
 
     query_vec = vectorizer.transform([query])
@@ -87,14 +87,16 @@ def add_item():
     name = data['name']
     location = data.get('location', '') 
     tags = data.get('tags', '')
+    sublocation = data.get('sublocation', '')
+
 
     conn = get_db_connection()
     cursor = conn.cursor()
 
     cursor.execute('''
-        INSERT INTO inventory (name, location, tags)
-        VALUES (%s, %s, %s)
-    ''', (name, location, tags))
+        INSERT INTO inventory (name, location, sublocation, tags)
+        VALUES (%s, %s, %s, %s)
+    ''', (name, location, sublocation, tags))
 
     conn.commit()
     cursor.close()
@@ -119,6 +121,7 @@ def get_items():
         return jsonify({"error": str(e)}), 500
 
 
+#need to update code to reflect sublocation
 @app.route('/update_item/<int:id>', methods=['PUT'])
 def update_item(id):
     data = request.get_json()

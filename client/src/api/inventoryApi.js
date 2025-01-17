@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'https://inventory-backend-9xgv.onrender.com';
+//const API_BASE_URL = 'https://inventory-backend-9xgv.onrender.com';
+//Added the bottom one for local testing
+const API_BASE_URL = 'http://127.0.0.1:5000';
 
 export const addItem = (item) => axios.post(`${API_BASE_URL}/add_item`, item);
 
